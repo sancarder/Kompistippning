@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Kompistippning</string>
+
+    <string name="betButton">Tippa</string>
+    <string name="addButton">Lägg till</string>
+    <string name="viewCompetitionButton">Tävlingar</string>
+    <string name="viewStats">Statistik</string>
+
+    <string name="addCompetition">Lägg till tävling</string>
+    <string name="addGame">Lägg till match</string>
+    <string name="addParticipant">Lägg till deltagare</string>
+
+    <string name="addTeamA">Lag 1</string>
+    <string name="addTeamB">Lag 2</string>
+    <string name="addDate">Datum</string>
+    <string name="addBetAmount">Summa</string>
+    <string name="addGameType">Typ av match</string>
+
 </resources>

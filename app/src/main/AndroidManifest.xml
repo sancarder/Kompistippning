@@ -15,6 +15,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddActivity"
+            android:label="@string/addButton" />
+        <activity
+            android:name=".CompetitionActivity"
+            android:label="@string/viewCompetitionButton" />
+        <activity
+            android:name=".StatisticsActivity"
+            android:label="@string/viewStats" />
+        <activity android:name=".BetActivity"
+            android:label="@string/betButton" />
     </application>
 
 </manifest>
