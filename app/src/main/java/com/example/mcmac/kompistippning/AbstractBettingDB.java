@@ -58,7 +58,7 @@ public abstract class AbstractBettingDB {
 
     private static final String [] competitions_columns = {KEY_ROW_ID, KEY_EVENT_NAME};
     private static final String [] games_columns = {KEY_ROW_ID, KEY_EVENT_NAME,KEY_DATE, KEY_TEAM_A, KEY_TEAM_B, KEY_BET_AMOUNT, KEY_GAME_TYPE};
-    private static final String [] participants_columns = {KEY_EVENT_NAME, KEY_PERSON};
+    private static final String [] participants_columns = {KEY_ROW_ID, KEY_EVENT_NAME, KEY_PERSON};
     private static final String [] bets_columns= {KEY_EVENT_NAME, KEY_PERSON, KEY_GAME_ID, KEY_BET};
 
     //private static final String [] municip_columns = {KEY_MUNICIP_ID,KEY_MUNICIP_NAME, KEY_EMAIL, KEY_PHONE};
@@ -71,7 +71,7 @@ public abstract class AbstractBettingDB {
     //Strängar för skapande av de fyra tabellerna
     private static final String DB_CREATE_COMPETITIONS = "create table " + DB_TABLE_COMPETITIONS + " (" +KEY_ROW_ID + " integer primary key autoincrement, " + KEY_EVENT_NAME +" text not null );";
     private static final String DB_CREATE_GAMES = "create table " + DB_TABLE_GAMES + " ("+KEY_ROW_ID + " integer primary key autoincrement, "  + KEY_EVENT_NAME +" text not null, " +KEY_DATE +" text not null, " +KEY_TEAM_A +" text not null, " + KEY_TEAM_B + " text not null, " +KEY_BET_AMOUNT +" text not null, " +KEY_GAME_TYPE +" text not null );";
-    private static final String DB_CREATE_PARTICIPANTS = "create table " + DB_TABLE_PARTICIPANTS + " (" +KEY_EVENT_NAME + " text not null, " + KEY_PERSON +" text not null );";
+    private static final String DB_CREATE_PARTICIPANTS = "create table " + DB_TABLE_PARTICIPANTS + " (" +KEY_ROW_ID +" integer primary key autoincrement, " + KEY_EVENT_NAME + " text not null, " + KEY_PERSON +" text not null );";
     private static final String DB_CREATE_BETS = "create table " + DB_TABLE_BETS + " (" +KEY_EVENT_NAME + " text not null," +KEY_PERSON +" text not null, "+ KEY_GAME_ID + " text not null, " + KEY_BET + " text not null );";
     //private static final String DB_CREATE_MUNICIP = "create table " + DB_TABLE_MUNICIP + " (" +KEY_MUNICIP_ID + " integer primary key autoincrement, " + KEY_MUNICIP_NAME + " text not null, " + KEY_EMAIL + " text not null, " + KEY_PHONE + " text not null );";
     //private static final String DB_CREATE_EVENT = "create table " + DB_TABLE_EVENT + " (" +KEY_EVENT_ID + " integer primary key autoincrement, "+ KEY_EVENT_NAME + " text not null, " + KEY_MUNICIP_NAME + " text not null, " + KEY_EVENT_GRADE + " text not null, "+ KEY_EVENT_PLACE + " text not null, " + KEY_EVENT_DESCRIPTION + " text not null, "+ KEY_EVENT_STATUS + " text not null, " + KEY_EVENT_DATE + " text not null );";

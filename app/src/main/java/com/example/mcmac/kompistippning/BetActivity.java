@@ -17,6 +17,8 @@ public class BetActivity extends AppCompatActivity {
     Spinner gameSpinner;
     ArrayAdapter gameAdapter;
 
+    Spinner participantSpinner;
+    ArrayAdapter participantAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,10 @@ public class BetActivity extends AppCompatActivity {
         gameSpinner = (Spinner) findViewById(R.id.gameSpinner);
         gameAdapter = new ArrayAdapter<Game>(this, android.R.layout.simple_spinner_item, android.R.id.text1, BettingDB.getInstance().getAllGames());
         gameSpinner.setAdapter(gameAdapter);
+
+        participantSpinner = (Spinner) findViewById(R.id.gameSpinner);
+        participantAdapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_spinner_item, android.R.id.text1, BettingDB.getInstance().getAllParticipants());
+        gameSpinner.setAdapter(participantAdapter);
 
     }
 }
