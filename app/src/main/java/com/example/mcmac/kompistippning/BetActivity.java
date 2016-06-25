@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BetActivity extends AppCompatActivity {
 
@@ -22,6 +23,13 @@ public class BetActivity extends AppCompatActivity {
 
     Spinner participantSpinner;
     ArrayAdapter participantAdapter;
+
+    ArrayList<Game> gamesList;
+    ArrayList<Participant> participantsList;
+
+    String currentEvent = null;
+    String currentGame = null;
+    String currentParticipant = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +50,19 @@ public class BetActivity extends AppCompatActivity {
         competitionSpinner.setAdapter(competitionAdapter);
         competitionSpinner.setOnItemSelectedListener(myItemSelectedListener);
 
+        Competition current_event = (Competition) competitionSpinner.getSelectedItem();
+        currentEvent = current_event.getEventName();
+
+        gamesList = BettingDB.getInstance().getEventGames(currentEvent);
+        participantsList = BettingDB.getInstance().getEventParticipants(currentEvent);
+
         gameSpinner = (Spinner) findViewById(R.id.gameSpinner);
-        gameAdapter = new ArrayAdapter<Game>(this, android.R.layout.simple_spinner_item, android.R.id.text1, BettingDB.getInstance().getAllGames());
+        gameAdapter = new ArrayAdapter<Game>(this, android.R.layout.simple_spinner_item, android.R.id.text1, gamesList);
         gameSpinner.setAdapter(gameAdapter);
         gameSpinner.setOnItemSelectedListener(myItemSelectedListener);
 
         participantSpinner = (Spinner) findViewById(R.id.participantSpinner);
-        participantAdapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_spinner_item, android.R.id.text1, BettingDB.getInstance().getAllParticipants());
+        participantAdapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_spinner_item, android.R.id.text1, participantsList);
         participantSpinner.setAdapter(participantAdapter);
         participantSpinner.setOnItemSelectedListener(myItemSelectedListener);
 
@@ -67,6 +81,22 @@ public class BetActivity extends AppCompatActivity {
             grade_choice = (String)gradeSpinner.getSelectedItem();
             System.out.println(grade_choice);
             */
+
+            Competition tempCompetition = (Competition) competitionSpinner.getSelectedItem();
+
+            if (tempCompetition.getEventName() != currentEvent) {
+                currentEvent = tempCompetition.getEventName();
+                gamesList.clear();
+                gamesList.addAll(BettingDB.getInstance().getEventGames(currentEvent));
+                gameAdapter.notifyDataSetChanged();
+                gameSpinner.postInvalidate();
+
+                participantsList.clear();
+                participantsList.addAll(BettingDB.getInstance().getEventParticipants(currentEvent));
+                participantAdapter.notifyDataSetChanged();
+                participantSpinner.postInvalidate();
+            }
+
             TextView teamATextView =(TextView)findViewById(R.id.teamATextView);
             Game gameA = (Game)gameSpinner.getSelectedItem();
             teamATextView.setText(gameA.getTeamA());

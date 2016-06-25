@@ -122,10 +122,22 @@ public class BettingDB extends AbstractBettingDB{
         Cursor cr = getAllGamesCursor();
         return makeGameListFromCursor(cr);
     }
+
+    public ArrayList<Game> getEventGames(String event_name){
+        Cursor cr = getEventGamesCursor(event_name);
+        return makeGameListFromCursor(cr);
+    }
+
     public ArrayList<Participant> getAllParticipants(){
         Cursor cr = getAllParticipantsCursor();
         return makeParticipantListFromCursor(cr);
     }
+
+    public ArrayList<Participant> getEventParticipants(String event_name){
+        Cursor cr = getEventParticipantsCursor(event_name);
+        return makeParticipantListFromCursor(cr);
+    }
+
     public ArrayList<Bet> getAllBets(){
         Cursor cr = getAllBetsCursor();
         return makeBetListFromCursor(cr);
@@ -198,12 +210,18 @@ public class BettingDB extends AbstractBettingDB{
     protected void createTestData() {
         //Competition-table
         BettingDB.getInstance().insertCompetition("EM 2016");
+        BettingDB.getInstance().insertCompetition("VM 2018");
 
         //Games-table
-        BettingDB.getInstance().insertGame("EM 2016","2016-06-25","Kroatien", "Portugal", "5","Åttondel");
+        BettingDB.getInstance().insertGame("EM 2016", "2016-06-25", "Kroatien", "Portugal", "5", "Åttondel");
+        BettingDB.getInstance().insertGame("EM 2016", "2016-07-08", "Polen", "Sverige", "7", "Semifinal");
+        BettingDB.getInstance().insertGame("VM 2018", "2018-06-15", "Spanien", "Italien", "10", "Final");
 
         //Participant-table
         BettingDB.getInstance().insertParticipant("EM 2016", "David");
+        BettingDB.getInstance().insertParticipant("EM 2016", "Julia");
+        BettingDB.getInstance().insertParticipant("VM 2018", "Sandra");
+        BettingDB.getInstance().insertParticipant("VM 2018", "Mattias");
 
         //Bet-table
         BettingDB.getInstance().insertBet("EM 2016", "David", 0, "1-2");

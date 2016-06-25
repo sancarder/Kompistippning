@@ -64,7 +64,7 @@ public abstract class AbstractBettingDB {
     //private static final String [] municip_columns = {KEY_MUNICIP_ID,KEY_MUNICIP_NAME, KEY_EMAIL, KEY_PHONE};
     //private static final String [] event_columns = {KEY_EVENT_ID, KEY_EVENT_NAME, KEY_MUNICIP_NAME, KEY_EVENT_GRADE, KEY_EVENT_PLACE, KEY_EVENT_DESCRIPTION, KEY_EVENT_STATUS, KEY_EVENT_DATE};
 
-    private static final int DB_VERSION = 6;
+    private static final int DB_VERSION = 8;
     private MyDbHelper myDbHelper;
     private Context context;
 
@@ -112,8 +112,16 @@ public abstract class AbstractBettingDB {
         return database.query(DB_TABLE_GAMES,games_columns, null, null, null, null, null);
     }
 
+    protected Cursor getEventGamesCursor(String event_name){ //select * from Games where event_name is specified
+        return database.query(DB_TABLE_GAMES,games_columns, KEY_EVENT_NAME+"= '"+event_name+"'", null, null, null, null);
+    }
+
     protected Cursor getAllParticipantsCursor(){ //select * from Participants
         return database.query(DB_TABLE_PARTICIPANTS,participants_columns, null, null, null, null, null);
+    }
+
+    protected Cursor getEventParticipantsCursor(String event_name){ //select * from Participants where event_name is specified
+        return database.query(DB_TABLE_PARTICIPANTS,participants_columns, KEY_EVENT_NAME+"= '"+event_name+"'", null, null, null, null);
     }
 
     protected Cursor getAllBetsCursor(){ //select * from Bets
