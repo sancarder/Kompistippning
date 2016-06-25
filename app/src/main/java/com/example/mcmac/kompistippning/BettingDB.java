@@ -34,6 +34,7 @@ public class BettingDB extends AbstractBettingDB{
         values.put(KEY_DATE, date);
         values.put(KEY_TEAM_A, team_A);
         values.put(KEY_TEAM_B, team_B);
+//        values.put(KEY_GAME_ID, gameId);
         values.put(KEY_BET_AMOUNT, bet_amounts);
         values.put(KEY_GAME_TYPE, game_type);
         long rowId = database.insert(DB_TABLE_GAMES, null, values);
@@ -47,14 +48,14 @@ public class BettingDB extends AbstractBettingDB{
         long rowId = database.insert(DB_TABLE_PARTICIPANTS, null, values);
         return new Participant(rowId, event_name, person);
     }
-    public Bet insertBet(String event_name, String person, String game_id, String bet){
+    public Bet insertBet(String event_name, String person, int game_id, String bet){
         ContentValues values = new ContentValues();
         values.put(KEY_EVENT_NAME, event_name);
         values.put(KEY_PERSON, person);
         values.put(KEY_GAME_ID, game_id);
         values.put(KEY_BET, bet);
-        long rowID = database.insert(DB_TABLE_BETS, null, values);
-        return new Bet(rowId, event_name, person);
+        long rowId = database.insert(DB_TABLE_BETS, null, values);
+        return new Bet(rowId, event_name, person, game_id, bet);
     }
 
     /*
@@ -134,7 +135,7 @@ public class BettingDB extends AbstractBettingDB{
         ArrayList<Competition> competitions = new ArrayList<Competition>();
         if (cr != null && cr.moveToFirst())
             do {
-                competitions.add(new Competition(cr.getString(0)));
+                competitions.add(new Competition(cr.getInt(0), cr.getString(1)));
             } while (cr.moveToNext());
         return competitions;
     }
@@ -143,7 +144,7 @@ public class BettingDB extends AbstractBettingDB{
         ArrayList<Game> games = new ArrayList<Game>();
         if (cr != null && cr.moveToFirst())
             do {
-                games.add(new Game(cr.getString(0), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), cr.getString(5), cr.getString(6)));
+                games.add(new Game(cr.getInt(0), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), cr.getString(5), cr.getString(6)));
             } while (cr.moveToNext());
         return games;
     }
@@ -152,7 +153,7 @@ public class BettingDB extends AbstractBettingDB{
         ArrayList<Participant> participants = new ArrayList<Participant>();
         if (cr != null && cr.moveToFirst())
             do {
-                participants.add(new Participant(cr.getString(0), cr.getString(1)));
+                participants.add(new Participant(cr.getInt(0), cr.getString(1), cr.getString(2)));
             } while (cr.moveToNext());
         return participants;
     }
@@ -161,7 +162,7 @@ public class BettingDB extends AbstractBettingDB{
         ArrayList<Bet> bets = new ArrayList<Bet>();
         if (cr != null && cr.moveToFirst())
             do {
-                bets.add(new Bet(cr.getString(0), cr.getString(1), cr.getString(2), cr.getString(3)));
+                bets.add(new Bet(cr.getInt(0), cr.getString(1), cr.getString(2), cr.getInt(3), cr.getString(4)));
             } while (cr.moveToNext());
         return bets;
     }
@@ -199,13 +200,13 @@ public class BettingDB extends AbstractBettingDB{
         BettingDB.getInstance().insertCompetition("EM 2016");
 
         //Games-table
-        BettingDB.getInstance().insertGame("EM 2016","2016-06-25","Kroatien", "Portugal","5","Åttondel");
+        BettingDB.getInstance().insertGame("EM 2016","2016-06-25","Kroatien", "Portugal", "5","Åttondel");
 
         //Participant-table
         BettingDB.getInstance().insertParticipant("EM 2016", "David");
 
         //Bet-table
-        BettingDB.getInstance().insertBet("EM 2016", "David", "0", "1-2");
+        BettingDB.getInstance().insertBet("EM 2016", "David", 0, "1-2");
 
         /*
         //Municip-table

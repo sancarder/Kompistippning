@@ -16,6 +16,7 @@ public abstract class AbstractBettingDB {
     //Competitionstable
     public static final String DB_TABLE_COMPETITIONS ="competitions";
     public static final String KEY_EVENT_NAME = "event_name";
+    public static final String KEY_ROW_ID = "row_id";
 
     //Gamestable
     public static final String DB_TABLE_GAMES = "games";
@@ -55,21 +56,21 @@ public abstract class AbstractBettingDB {
     public static final String DB_NAME = "competitionbets";
     protected SQLiteDatabase database;
 
-    private static final String [] competitions_columns = {KEY_EVENT_NAME};
-    private static final String [] games_columns = {KEY_EVENT_NAME,KEY_DATE, KEY_TEAM_A, KEY_TEAM_B, KEY_BET_AMOUNT, KEY_GAME_TYPE};
+    private static final String [] competitions_columns = {KEY_ROW_ID, KEY_EVENT_NAME};
+    private static final String [] games_columns = {KEY_ROW_ID, KEY_EVENT_NAME,KEY_DATE, KEY_TEAM_A, KEY_TEAM_B, KEY_BET_AMOUNT, KEY_GAME_TYPE};
     private static final String [] participants_columns = {KEY_EVENT_NAME, KEY_PERSON};
     private static final String [] bets_columns= {KEY_EVENT_NAME, KEY_PERSON, KEY_GAME_ID, KEY_BET};
 
     //private static final String [] municip_columns = {KEY_MUNICIP_ID,KEY_MUNICIP_NAME, KEY_EMAIL, KEY_PHONE};
     //private static final String [] event_columns = {KEY_EVENT_ID, KEY_EVENT_NAME, KEY_MUNICIP_NAME, KEY_EVENT_GRADE, KEY_EVENT_PLACE, KEY_EVENT_DESCRIPTION, KEY_EVENT_STATUS, KEY_EVENT_DATE};
 
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 5;
     private MyDbHelper myDbHelper;
     private Context context;
 
     //Strängar för skapande av de fyra tabellerna
-    private static final String DB_CREATE_COMPETITIONS = "create table " + DB_TABLE_COMPETITIONS + " (" +KEY_EVENT_NAME +" text not null );";
-    private static final String DB_CREATE_GAMES = "create table " + DB_TABLE_GAMES + " (" + KEY_EVENT_NAME +" text not null, " +KEY_DATE +" text not null, " +KEY_TEAM_A +" text not null, " + KEY_TEAM_B + " text not null, " + KEY_GAME_ID + " integer primary key autoincrement, " +KEY_BET_AMOUNT +" text not null, " +KEY_GAME_TYPE +" text not null );";
+    private static final String DB_CREATE_COMPETITIONS = "create table " + DB_TABLE_COMPETITIONS + " (" +KEY_ROW_ID + " integer primary key autoincrement, " + KEY_EVENT_NAME +" text not null );";
+    private static final String DB_CREATE_GAMES = "create table " + DB_TABLE_GAMES + " ("+KEY_ROW_ID + " integer primary key autoincrement, "  + KEY_EVENT_NAME +" text not null, " +KEY_DATE +" text not null, " +KEY_TEAM_A +" text not null, " + KEY_TEAM_B + " text not null, " +KEY_BET_AMOUNT +" text not null, " +KEY_GAME_TYPE +" text not null );";
     private static final String DB_CREATE_PARTICIPANTS = "create table " + DB_TABLE_PARTICIPANTS + " (" +KEY_EVENT_NAME + " text not null, " + KEY_PERSON +" text not null );";
     private static final String DB_CREATE_BETS = "create table " + DB_TABLE_BETS + " (" +KEY_EVENT_NAME + " text not null," +KEY_PERSON +" text not null, "+ KEY_GAME_ID + " text not null, " + KEY_BET + " text not null );";
     //private static final String DB_CREATE_MUNICIP = "create table " + DB_TABLE_MUNICIP + " (" +KEY_MUNICIP_ID + " integer primary key autoincrement, " + KEY_MUNICIP_NAME + " text not null, " + KEY_EMAIL + " text not null, " + KEY_PHONE + " text not null );";

@@ -12,44 +12,44 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner3"
+        android:id="@+id/competitionSpinner"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner4"
-        android:layout_below="@+id/spinner3"
+        android:id="@+id/gameSpinner"
+        android:layout_below="@+id/competitionSpinner"
         android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner5"
-        android:layout_below="@+id/spinner4"
+        android:id="@+id/participantSpinner"
+        android:layout_below="@+id/gameSpinner"
         android:layout_alignParentStart="true" />
 
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/numberPicker"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/textView4" />
+        android:id="@+id/teamAGoalPicker"
+        android:layout_below="@+id/teamBTextView"
+        android:layout_alignStart="@+id/teamATextView" />
 
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/numberPicker3"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/textView5">
+        android:id="@+id/teamBGoalPicker"
+        android:layout_below="@+id/teamBTextView"
+        android:layout_alignStart="@+id/teamBTextView">
     </NumberPicker>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/betButton"
-        android:id="@+id/button8"
+        android:id="@+id/tipButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
@@ -57,18 +57,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addTeamA"
-        android:id="@+id/textView4"
+        android:id="@+id/teamATextView"
         android:layout_marginStart="65dp"
-        android:layout_below="@+id/spinner5"
+        android:layout_below="@+id/participantSpinner"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addTeamB"
-        android:id="@+id/textView5"
+        android:id="@+id/teamBTextView"
         android:layout_marginEnd="23dp"
-        android:layout_below="@+id/spinner5"
-        android:layout_toStartOf="@+id/button8" />
+        android:layout_below="@+id/participantSpinner"
+        android:layout_toStartOf="@+id/tipButton" />
 
 </RelativeLayout>
