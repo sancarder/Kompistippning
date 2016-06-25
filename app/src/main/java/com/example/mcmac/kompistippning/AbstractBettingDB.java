@@ -64,7 +64,7 @@ public abstract class AbstractBettingDB {
     //private static final String [] municip_columns = {KEY_MUNICIP_ID,KEY_MUNICIP_NAME, KEY_EMAIL, KEY_PHONE};
     //private static final String [] event_columns = {KEY_EVENT_ID, KEY_EVENT_NAME, KEY_MUNICIP_NAME, KEY_EVENT_GRADE, KEY_EVENT_PLACE, KEY_EVENT_DESCRIPTION, KEY_EVENT_STATUS, KEY_EVENT_DATE};
 
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
     private MyDbHelper myDbHelper;
     private Context context;
 

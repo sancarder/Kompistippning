@@ -40,9 +40,9 @@ public class BetActivity extends AppCompatActivity {
         gameAdapter = new ArrayAdapter<Game>(this, android.R.layout.simple_spinner_item, android.R.id.text1, BettingDB.getInstance().getAllGames());
         gameSpinner.setAdapter(gameAdapter);
 
-        participantSpinner = (Spinner) findViewById(R.id.gameSpinner);
+        participantSpinner = (Spinner) findViewById(R.id.participantSpinner);
         participantAdapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_spinner_item, android.R.id.text1, BettingDB.getInstance().getAllParticipants());
-        gameSpinner.setAdapter(participantAdapter);
+        participantSpinner.setAdapter(participantAdapter);
 
     }
 }
