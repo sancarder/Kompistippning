@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -26,6 +26,10 @@ public class BetActivity extends AppCompatActivity {
 
     ArrayList<Game> gamesList;
     ArrayList<Participant> participantsList;
+    ArrayList<Bet> betsList;
+
+    NumberPicker teamAnp;
+    NumberPicker teamBnp;
 
     String currentEvent = null;
     String currentGame = null;
@@ -56,17 +60,31 @@ public class BetActivity extends AppCompatActivity {
         gamesList = BettingDB.getInstance().getEventGames(currentEvent);
         participantsList = BettingDB.getInstance().getEventParticipants(currentEvent);
 
+        betsList = BettingDB.getInstance().getAllBets();
+
         gameSpinner = (Spinner) findViewById(R.id.gameSpinner);
         gameAdapter = new ArrayAdapter<Game>(this, android.R.layout.simple_spinner_item, android.R.id.text1, gamesList);
         gameSpinner.setAdapter(gameAdapter);
         gameSpinner.setOnItemSelectedListener(myItemSelectedListener);
 
-        participantSpinner = (Spinner) findViewById(R.id.participantSpinner);
-        participantAdapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_spinner_item, android.R.id.text1, participantsList);
+        participantSpinner = (Spinner) findViewById(R.id.competitionsSpinner2);
+//        participantAdapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_spinner_item, android.R.id.text1, participantsList);
+
+        participantAdapter = new ArrayAdapter<Bet>(this, android.R.layout.simple_spinner_item, android.R.id.text1, betsList);
+
         participantSpinner.setAdapter(participantAdapter);
         participantSpinner.setOnItemSelectedListener(myItemSelectedListener);
 
+        teamAnp = (NumberPicker)findViewById(R.id.teamAGoalPicker);
+        teamBnp = (NumberPicker)findViewById(R.id.teamBGoalPicker);
 
+        teamAnp.setMinValue(0);
+        teamAnp.setMaxValue(9);
+        teamAnp.setWrapSelectorWheel(true);
+
+        teamBnp.setMinValue(0);
+        teamBnp.setMaxValue(9);
+        teamBnp.setWrapSelectorWheel(true);
 
     }
 
@@ -97,16 +115,57 @@ public class BetActivity extends AppCompatActivity {
                 participantSpinner.postInvalidate();
             }
 
-            TextView teamATextView =(TextView)findViewById(R.id.teamATextView);
-            Game gameA = (Game)gameSpinner.getSelectedItem();
-            teamATextView.setText(gameA.getTeamA());
+            TextView teamATextView = (TextView) findViewById(R.id.teamATextView);
+            Game gameA = (Game) gameSpinner.getSelectedItem();
+            TextView teamBTextView = (TextView) findViewById(R.id.teamBTextView);
+            Game gameB = (Game) gameSpinner.getSelectedItem();
 
-            TextView teamBTextView =(TextView)findViewById(R.id.teamBTextView);
-            Game gameB = (Game)gameSpinner.getSelectedItem();
-            teamBTextView.setText(gameB.getTeamB());
+            if (gamesList.size() > 0) {
+                teamATextView.setText(gameA.getTeamA());
+                teamBTextView.setText(gameB.getTeamB());
+            } else {
+                teamATextView.setText("Lag 1");
+                teamBTextView.setText("Lag 2");
+            }
 
+//            TextView currentBetInfo = (TextView) findViewById(R.id.currentBetTextView);
+//            Participant currentParticipant = (Participant) participantSpinner.getSelectedItem();
 
+//            if (participantsList.size() > 0 && gamesList.size() > 0) {
+
+//                Game currentGame = ((Game) gameSpinner.getSelectedItem());
+//                ArrayList<Bet> participantBet = BettingDB.getInstance().getGameBet(currentEvent, currentGame.getRowId(), currentParticipant.getPerson());
+//                ArrayList<Bet> participantBet = BettingDB.getInstance().getAllBets();
+
+/*
+
+                if (participantBet.size() > 0) {
+                    currentBetInfo.setText(currentParticipant.getPerson() + " har tippat " + participantBet.get(0).getBet());
+                }
+                else {
+                    currentBetInfo.setText(currentParticipant.getPerson() + " har ännu inte tippat");
+                }
+            }
+            else {
+                currentBetInfo.setText("Tävlingen saknar deltagare");
+            }
+*/
+
+//            }
         }
         public void onNothingSelected(AdapterView<?> parent) {
         }};
+
+    public void onClick(View view) {
+
+        Competition betEvent = (Competition) competitionSpinner.getSelectedItem();
+        Game betGame = (Game) gameSpinner.getSelectedItem();
+        Participant betParticipant = (Participant) participantSpinner.getSelectedItem();
+
+        int betTeamA = teamAnp.getValue();
+        int betTeamB = teamBnp.getValue();
+
+        BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), betTeamA+"-"+betTeamB);
+
+    }
 }

@@ -28,7 +28,7 @@ public class BettingDB extends AbstractBettingDB{
         return new Competition(rowId, event_name);
     }
 
-    public Game insertGame(String event_name, String date, String team_A, String team_B, String bet_amounts, String game_type ){
+    public Game insertGame(String event_name, String date, String team_A, String team_B, String bet_amounts, String game_type, String eventResult ){
         ContentValues values = new ContentValues();
         values.put(KEY_EVENT_NAME, event_name);
         values.put(KEY_DATE, date);
@@ -37,8 +37,9 @@ public class BettingDB extends AbstractBettingDB{
 //        values.put(KEY_GAME_ID, gameId);
         values.put(KEY_BET_AMOUNT, bet_amounts);
         values.put(KEY_GAME_TYPE, game_type);
+        values.put(KEY_EVENT_RESULT, eventResult);
         long rowId = database.insert(DB_TABLE_GAMES, null, values);
-        return new Game(rowId, event_name, date, team_A, team_B, bet_amounts, game_type );
+        return new Game(rowId, event_name, date, team_A, team_B, bet_amounts, game_type, eventResult );
     }
 
     public Participant insertParticipant(String event_name, String person){
@@ -48,7 +49,7 @@ public class BettingDB extends AbstractBettingDB{
         long rowId = database.insert(DB_TABLE_PARTICIPANTS, null, values);
         return new Participant(rowId, event_name, person);
     }
-    public Bet insertBet(String event_name, String person, int game_id, String bet){
+    public Bet insertBet(String event_name, String person, String game_id, String bet){
         ContentValues values = new ContentValues();
         values.put(KEY_EVENT_NAME, event_name);
         values.put(KEY_PERSON, person);
@@ -83,6 +84,17 @@ public class BettingDB extends AbstractBettingDB{
         return new EventPoint(rowId, event, municip, grade, place, description, status, date);
     }*/
 
+    public boolean updateGame(Game game){
+        ContentValues values = new ContentValues();
+        values.put(KEY_EVENT_NAME, game.getEventName());
+        values.put(KEY_DATE, game.getDate());
+        values.put(KEY_TEAM_A, game.getTeamA());
+        values.put(KEY_TEAM_B, game.getTeamB());
+        values.put(KEY_BET_AMOUNT, game.getBetAmount());
+        values.put(KEY_GAME_TYPE, game.getGameType());
+        values.put(KEY_EVENT_RESULT, game.getEventResult());
+        return database.update(DB_TABLE_GAMES, values, KEY_ROW_ID + "=" + game.getRowId(), null) >0;
+    }
     /* Detta ska implementeras senare för KompisBetting
     public boolean updateMunicip(Municip municip){
         ContentValues values = new ContentValues();
@@ -128,6 +140,11 @@ public class BettingDB extends AbstractBettingDB{
         return makeGameListFromCursor(cr);
     }
 
+    public ArrayList<Bet> getGameBet(String event_name, long gameId, String participant) {
+        Cursor cr = getGameBetCursor(event_name, gameId, participant);
+        return makeBetListFromCursor(cr);
+    }
+
     public ArrayList<Participant> getAllParticipants(){
         Cursor cr = getAllParticipantsCursor();
         return makeParticipantListFromCursor(cr);
@@ -156,7 +173,7 @@ public class BettingDB extends AbstractBettingDB{
         ArrayList<Game> games = new ArrayList<Game>();
         if (cr != null && cr.moveToFirst())
             do {
-                games.add(new Game(cr.getInt(0), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), cr.getString(5), cr.getString(6)));
+                games.add(new Game(cr.getInt(0), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), cr.getString(5), cr.getString(6), cr.getString(7)));
             } while (cr.moveToNext());
         return games;
     }
@@ -174,38 +191,11 @@ public class BettingDB extends AbstractBettingDB{
         ArrayList<Bet> bets = new ArrayList<Bet>();
         if (cr != null && cr.moveToFirst())
             do {
-                bets.add(new Bet(cr.getInt(0), cr.getString(1), cr.getString(2), cr.getInt(3), cr.getString(4)));
+                bets.add(new Bet(cr.getInt(0), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4)));
             } while (cr.moveToNext());
         return bets;
     }
 
-/*
-    public ArrayList<Municip> getAllMunicips() {
-        Cursor cr = getAllMunicipsCursor();
-        return makeMunicipListFromCursor(cr);
-    }
-    public ArrayList<EventPoint> getAllEventPoints() {
-        Cursor cr = getAllEventPointsCursor();
-        return makeEventPointListFromCursor(cr);
-    }
-
-    private ArrayList<Municip> makeMunicipListFromCursor(Cursor cr){
-        ArrayList<Municip> municips = new ArrayList<Municip>();
-        if (cr != null && cr.moveToFirst())
-            do {
-                municips.add(new Municip(cr.getInt(0), cr.getString(1), cr.getString(2), cr.getString(3)));
-            } while (cr.moveToNext());
-        return municips;
-    }
-
-    private ArrayList<EventPoint> makeEventPointListFromCursor(Cursor cr){
-        ArrayList<EventPoint> events = new ArrayList<EventPoint>();
-        if (cr != null && cr.moveToFirst())
-            do {
-                events.add(new EventPoint(cr.getInt(0), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), cr.getString(5),cr.getString(6), cr.getString(7)));
-            } while (cr.moveToNext());
-        return events;
-    }*/
 
     protected void createTestData() {
         //Competition-table
@@ -213,9 +203,9 @@ public class BettingDB extends AbstractBettingDB{
         BettingDB.getInstance().insertCompetition("VM 2018");
 
         //Games-table
-        BettingDB.getInstance().insertGame("EM 2016", "2016-06-25", "Kroatien", "Portugal", "5", "Åttondel");
-        BettingDB.getInstance().insertGame("EM 2016", "2016-07-08", "Polen", "Sverige", "7", "Semifinal");
-        BettingDB.getInstance().insertGame("VM 2018", "2018-06-15", "Spanien", "Italien", "10", "Final");
+        BettingDB.getInstance().insertGame("EM 2016", "2016-06-25", "Kroatien", "Portugal", "5", "Åttondel", "-");
+        BettingDB.getInstance().insertGame("EM 2016", "2016-07-08", "Polen", "Sverige", "7", "Semifinal", "2-1");
+        BettingDB.getInstance().insertGame("VM 2018", "2018-06-15", "Spanien", "Italien", "10", "Final", "-");
 
         //Participant-table
         BettingDB.getInstance().insertParticipant("EM 2016", "David");
@@ -224,18 +214,8 @@ public class BettingDB extends AbstractBettingDB{
         BettingDB.getInstance().insertParticipant("VM 2018", "Mattias");
 
         //Bet-table
-        BettingDB.getInstance().insertBet("EM 2016", "David", 0, "1-2");
+        BettingDB.getInstance().insertBet("EM 2016", "David", "1", "1-2");
 
-        /*
-        //Municip-table
-        MunicipDB.getInstance().insertMunicip("Goteborgs kommun", "goteborg@testdata.se", "031-XXXXX");
-        MunicipDB.getInstance().insertMunicip("Vaggeryds kommun", "vaggeryd@testdata.se", "0393-XXXXX");
-        MunicipDB.getInstance().insertMunicip("Molndals kommun", "molndal@testdata.se", "031-2XXXXX");
-
-        //EventPoint-table
-        MunicipDB.getInstance().insertEventPoint("Trasig lampa", "Vaggeryds kommun", "Allvarlig", "Koord", "Kvall i december", "false", "2015-12-10");
-        MunicipDB.getInstance().insertEventPoint("Trasig jarnvagsbom", "Göteborgs kommun", "Mycket allvarlig", "Koord", "Kvall i december", "true", "2015-12-24");
-    */
     }
 
 }

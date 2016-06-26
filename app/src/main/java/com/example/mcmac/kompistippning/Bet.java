@@ -8,10 +8,10 @@ public class Bet {
     long rowId;
     String eventName;
     String person;
-    int gameId;
+    String gameId;
     String bet;
 
-    public Bet(long rowId, String eventName, String person, int gameId, String bet){
+    public Bet(long rowId, String eventName, String person, String gameId, String bet){
         this.rowId = rowId;
         this.eventName = eventName;
         this.person = person;
@@ -19,11 +19,11 @@ public class Bet {
         this.bet = bet;
     }
 
-    public int getGameId() {
+    public String getGameId() {
         return gameId;
     }
 
-    public void setGameId(int gameId) {
+    public void setGameId(String gameId) {
         this.gameId = gameId;
     }
 

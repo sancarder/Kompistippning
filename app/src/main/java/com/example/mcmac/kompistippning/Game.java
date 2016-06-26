@@ -13,8 +13,9 @@ public class Game {
 //    int gameId;
     String betAmount;
     String gameType;
+    String eventResult;
 
-    public Game(long rowId, String eventName, String date, String teamA, String teamB, String betAmount, String gameType){
+    public Game(long rowId, String eventName, String date, String teamA, String teamB, String betAmount, String gameType, String eventResult){
         this.rowId = rowId;
         this.eventName = eventName;
         this.date = date;
@@ -23,6 +24,15 @@ public class Game {
 //        this.gameId = gameId;
         this.betAmount = betAmount;
         this.gameType = gameType;
+        this.eventResult =eventResult;
+    }
+
+    public String getEventResult() {
+        return eventResult;
+    }
+
+    public void setEventResult(String eventResult) {
+        this.eventResult = eventResult;
     }
 
     @Override
