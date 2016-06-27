@@ -3,12 +3,16 @@
 
     <string name="betButton">Tippa</string>
     <string name="addButton">Lägg till</string>
+    <string name="deleteButton">Ta bort</string>
     <string name="viewCompetitionButton">Tävlingar</string>
     <string name="viewStats">Statistik</string>
 
-    <string name="addCompetition">Lägg till tävling</string>
-    <string name="addGame">Lägg till match</string>
-    <string name="addParticipant">Lägg till deltagare</string>
+    <string name="handleCompetitions">Hantera tävlingar</string>
+    <string name="handleGames">Hantera matcher</string>
+    <string name="handleParticipants">Hantera deltagare</string>
+
+    <string name="addCompetitionHint">Ny tävling</string>
+    <string name="addParticipantHint">Ny deltagare</string>
 
     <string name="addTeamA">Lag 1</string>
     <string name="addTeamB">Lag 2</string>

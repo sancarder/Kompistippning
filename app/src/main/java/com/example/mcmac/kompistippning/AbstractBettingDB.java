@@ -42,9 +42,9 @@ public abstract class AbstractBettingDB {
     private static final String [] competitions_columns = {KEY_ROW_ID, KEY_EVENT_NAME};
     private static final String [] games_columns = {KEY_ROW_ID, KEY_EVENT_NAME,KEY_DATE, KEY_TEAM_A, KEY_TEAM_B, KEY_BET_AMOUNT, KEY_GAME_TYPE, KEY_EVENT_RESULT};
     private static final String [] participants_columns = {KEY_ROW_ID, KEY_EVENT_NAME, KEY_PERSON};
-    private static final String [] bets_columns= {KEY_EVENT_NAME, KEY_PERSON, KEY_GAME_ID, KEY_BET};
+    private static final String [] bets_columns= {KEY_ROW_ID, KEY_EVENT_NAME, KEY_PERSON, KEY_GAME_ID, KEY_BET};
 
-    private static final int DB_VERSION = 12;
+    private static final int DB_VERSION = 13;
     private MyDbHelper myDbHelper;
     private Context context;
 
@@ -52,7 +52,7 @@ public abstract class AbstractBettingDB {
     private static final String DB_CREATE_COMPETITIONS = "create table " + DB_TABLE_COMPETITIONS + " (" +KEY_ROW_ID + " integer primary key autoincrement, " + KEY_EVENT_NAME +" text not null );";
     private static final String DB_CREATE_GAMES = "create table " + DB_TABLE_GAMES + " ("+KEY_ROW_ID + " integer primary key autoincrement, "  + KEY_EVENT_NAME +" text not null, " +KEY_DATE +" text not null, " +KEY_TEAM_A +" text not null, " + KEY_TEAM_B + " text not null, " +KEY_BET_AMOUNT +" text not null, " +KEY_GAME_TYPE + " text not null, " + KEY_EVENT_RESULT +" text not null );";
     private static final String DB_CREATE_PARTICIPANTS = "create table " + DB_TABLE_PARTICIPANTS + " (" +KEY_ROW_ID +" integer primary key autoincrement, " + KEY_EVENT_NAME + " text not null, " + KEY_PERSON +" text not null );";
-    private static final String DB_CREATE_BETS = "create table " + DB_TABLE_BETS + " (" +KEY_EVENT_NAME + " text not null," +KEY_PERSON +" text not null, "+ KEY_GAME_ID + " text not null, " + KEY_BET + " text not null );";
+    private static final String DB_CREATE_BETS = "create table " + DB_TABLE_BETS + " (" + KEY_ROW_ID + " integer primary key autoincrement, " + KEY_EVENT_NAME + " text not null," +KEY_PERSON +" text not null, "+ KEY_GAME_ID + " text not null, " + KEY_BET + " text not null );";
 
     protected abstract void createTestData(); //Must be implemented
 
@@ -85,8 +85,8 @@ public abstract class AbstractBettingDB {
     }
 
     protected  Cursor getGameBetCursor(String event_name, long gameId, String participant) {
-//        return database.query(DB_TABLE_BETS, bets_columns, KEY_EVENT_NAME + "=?" + " AND " + KEY_PERSON + "=?", new String[] { event_name, participant}, null, null, null);
-        return database.query(DB_TABLE_BETS, bets_columns, null, null, null, null, null);
+        return database.query(DB_TABLE_BETS, bets_columns, KEY_EVENT_NAME + "=?" + " AND " + KEY_PERSON + "=?", new String[] { event_name, participant}, null, null, null);
+//        return database.query(DB_TABLE_BETS, bets_columns, null, null, null, null, null);
     }
 
     protected Cursor getAllParticipantsCursor(){ //select * from Participants

@@ -26,7 +26,6 @@ public class BetActivity extends AppCompatActivity {
 
     ArrayList<Game> gamesList;
     ArrayList<Participant> participantsList;
-    ArrayList<Bet> betsList;
 
     NumberPicker teamAnp;
     NumberPicker teamBnp;
@@ -60,17 +59,13 @@ public class BetActivity extends AppCompatActivity {
         gamesList = BettingDB.getInstance().getEventGames(currentEvent);
         participantsList = BettingDB.getInstance().getEventParticipants(currentEvent);
 
-        betsList = BettingDB.getInstance().getAllBets();
-
         gameSpinner = (Spinner) findViewById(R.id.gameSpinner);
         gameAdapter = new ArrayAdapter<Game>(this, android.R.layout.simple_spinner_item, android.R.id.text1, gamesList);
         gameSpinner.setAdapter(gameAdapter);
         gameSpinner.setOnItemSelectedListener(myItemSelectedListener);
 
         participantSpinner = (Spinner) findViewById(R.id.competitionsSpinner2);
-//        participantAdapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_spinner_item, android.R.id.text1, participantsList);
-
-        participantAdapter = new ArrayAdapter<Bet>(this, android.R.layout.simple_spinner_item, android.R.id.text1, betsList);
+        participantAdapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_spinner_item, android.R.id.text1, participantsList);
 
         participantSpinner.setAdapter(participantAdapter);
         participantSpinner.setOnItemSelectedListener(myItemSelectedListener);
@@ -90,15 +85,6 @@ public class BetActivity extends AppCompatActivity {
 
     private class MyItemSelectedListener implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            /*
-            Municip municip = (Municip)municipSpinner.getSelectedItem();
-            emailShowText.setText(municip.getEmail());
-            System.out.println(municip);
-            event_choice = (String)eventSpinner.getSelectedItem();
-            System.out.println(event_choice);
-            grade_choice = (String)gradeSpinner.getSelectedItem();
-            System.out.println(grade_choice);
-            */
 
             Competition tempCompetition = (Competition) competitionSpinner.getSelectedItem();
 
@@ -128,16 +114,16 @@ public class BetActivity extends AppCompatActivity {
                 teamBTextView.setText("Lag 2");
             }
 
-//            TextView currentBetInfo = (TextView) findViewById(R.id.currentBetTextView);
-//            Participant currentParticipant = (Participant) participantSpinner.getSelectedItem();
+            TextView currentBetInfo = (TextView) findViewById(R.id.currentBetTextView);
+            Participant currentParticipant = (Participant) participantSpinner.getSelectedItem();
 
-//            if (participantsList.size() > 0 && gamesList.size() > 0) {
+            if (participantsList.size() > 0 && gamesList.size() > 0) {
 
-//                Game currentGame = ((Game) gameSpinner.getSelectedItem());
-//                ArrayList<Bet> participantBet = BettingDB.getInstance().getGameBet(currentEvent, currentGame.getRowId(), currentParticipant.getPerson());
+                Game currentGame = ((Game) gameSpinner.getSelectedItem());
+                ArrayList<Bet> participantBet = BettingDB.getInstance().getGameBet(currentEvent, currentGame.getRowId(), currentParticipant.getPerson());
 //                ArrayList<Bet> participantBet = BettingDB.getInstance().getAllBets();
 
-/*
+
 
                 if (participantBet.size() > 0) {
                     currentBetInfo.setText(currentParticipant.getPerson() + " har tippat " + participantBet.get(0).getBet());
@@ -149,9 +135,7 @@ public class BetActivity extends AppCompatActivity {
             else {
                 currentBetInfo.setText("Tävlingen saknar deltagare");
             }
-*/
 
-//            }
         }
         public void onNothingSelected(AdapterView<?> parent) {
         }};

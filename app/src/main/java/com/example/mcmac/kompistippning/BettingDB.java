@@ -49,6 +49,8 @@ public class BettingDB extends AbstractBettingDB{
         long rowId = database.insert(DB_TABLE_PARTICIPANTS, null, values);
         return new Participant(rowId, event_name, person);
     }
+
+
     public Bet insertBet(String event_name, String person, String game_id, String bet){
         ContentValues values = new ContentValues();
         values.put(KEY_EVENT_NAME, event_name);
@@ -58,31 +60,6 @@ public class BettingDB extends AbstractBettingDB{
         long rowId = database.insert(DB_TABLE_BETS, null, values);
         return new Bet(rowId, event_name, person, game_id, bet);
     }
-
-    /*
-    public Municip insertMunicip(String municip, String email, String phone){
-        ContentValues values = new ContentValues();
-        values.put(KEY_MUNICIP_NAME, municip);
-        values.put(KEY_EMAIL, email);
-        values.put(KEY_PHONE, phone);
-        long rowId = database.insert(DB_TABLE_MUNICIP, null, values);
-        Log.v("MyTag", "inserts");
-        return new Municip(rowId, municip, email, phone);
-    }
-
-    public EventPoint insertEventPoint(String event, String municip, String grade, String place, String description, String status, String date){
-        ContentValues values = new ContentValues();
-        values.put(KEY_EVENT_NAME, event);
-        values.put(KEY_MUNICIP_NAME, municip);
-        values.put(KEY_EVENT_GRADE, grade);
-        values.put(KEY_EVENT_PLACE, place);
-        values.put(KEY_EVENT_DESCRIPTION, description);
-        values.put(KEY_EVENT_STATUS, status);
-        values.put(KEY_EVENT_DATE, date);
-        long rowId = database.insert(DB_TABLE_EVENT, null, values);
-        Log.v("MyTag",String.valueOf(rowId));
-        return new EventPoint(rowId, event, municip, grade, place, description, status, date);
-    }*/
 
     public boolean updateGame(Game game){
         ContentValues values = new ContentValues();
@@ -117,6 +94,20 @@ public class BettingDB extends AbstractBettingDB{
         return database.update(DB_TABLE_EVENT, values, KEY_EVENT_ID + "=" + event.getId(), null) > 0;
     }*/
 
+
+    public boolean deleteCompetition(Competition competition){
+        return database.delete(DB_TABLE_COMPETITIONS, KEY_ROW_ID + "=" +competition.getRowId(), null)>0;
+    }
+
+    public boolean deleteGame(Game game){
+        return database.delete(DB_TABLE_GAMES, KEY_ROW_ID + "=" +game.getRowId(), null)>0;
+    }
+    public boolean deleteParticipant(Participant participant){
+        return database.delete(DB_TABLE_PARTICIPANTS, KEY_ROW_ID + "=" +participant.getRowId(), null)>0;
+    }
+    public boolean deleteBet(Bet bet){
+        return database.delete(DB_TABLE_BETS, KEY_ROW_ID + "=" +bet.getRowId(), null)>0;
+    }
     /*Detta ska implementeras senare för KompisBetting
     public boolean deleteMunicip(Municip municip){
         return database.delete(DB_TABLE_MUNICIP, KEY_MUNICIP_ID + "=" + municip.getId(), null) > 0;
@@ -159,6 +150,7 @@ public class BettingDB extends AbstractBettingDB{
         Cursor cr = getAllBetsCursor();
         return makeBetListFromCursor(cr);
     }
+
 
     private ArrayList<Competition> makeCompetitionListFromCursor(Cursor cr){
         ArrayList<Competition> competitions = new ArrayList<Competition>();

@@ -12,127 +12,196 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addCompetition"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
+        android:text="@string/handleCompetitions"
+        android:id="@+id/handleCompetitionsTextView"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/competitionField"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:hint="@string/addCompetition" />
+        android:layout_below="@id/handleCompetitionsTextView"
+        android:id="@+id/linlay1">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/competitionRemoveSpinner" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deleteButton"
+            android:id="@+id/deleteEventButton"
+            android:onClick="removeCompetition" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/addButton"
-        android:id="@+id/button4"
-        android:layout_alignBottom="@+id/competitionField"
-        android:layout_alignParentEnd="true"
-        android:onClick="addCompetition" />
+        android:layout_below="@id/linlay1"
+        android:id="@+id/linlay2">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/competitionField"
+            android:hint="@string/addCompetitionHint" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addButton"
+            android:id="@+id/addCompetitionButton"
+            android:onClick="addCompetition" />
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addGame"
-        android:id="@+id/textView2"
-        android:layout_marginTop="39dp"
-        android:layout_below="@+id/competitionField"
+        android:text="@string/handleGames"
+        android:id="@+id/handleGamesTextView"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/linlay2"
         android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/competitionsSpinner"
-        android:layout_below="@+id/textView2"
+        android:id="@+id/gameCompetitionsSpinner"
+        android:layout_below="@+id/handleGamesTextView"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/teamAField"
-        android:hint="@string/addTeamA"
-        android:layout_below="@+id/competitionsSpinner"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@id/gameCompetitionsSpinner"
+        android:id="@+id/linlay3">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/teamBField"
-        android:hint="@string/addTeamB"
-        android:layout_alignTop="@+id/teamAField"
-        android:layout_centerHorizontal="true" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameRemoveSpinner" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/sumField"
-        android:hint="@string/addBetAmount"
-        android:layout_alignTop="@+id/button5"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deleteButton"
+            android:id="@+id/deleteGameButton"
+            android:onClick="deleteGame" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gameTypeField"
-        android:hint="@string/addGameType"
-        android:layout_below="@+id/teamAField"
-        android:layout_alignEnd="@+id/textView3" />
+    </LinearLayout>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/addButton"
-        android:id="@+id/button5"
-        android:layout_alignBottom="@+id/gameTypeField"
-        android:layout_alignParentEnd="true"
-        android:onClick="addGame" />
+        android:layout_below="@id/linlay3"
+        android:id="@+id/linlay4">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamAField"
+            android:hint="@string/addTeamA" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamBField"
+            android:hint="@string/addTeamB" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateField"
+            android:hint="@string/addDate" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linlay4"
+        android:id="@+id/linlay5">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameTypeField"
+            android:hint="@string/addGameType" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sumField"
+            android:hint="@string/addBetAmount" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addButton"
+            android:id="@+id/button5"
+            android:onClick="addGame" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addParticipant"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/button5"
+        android:text="@string/handleParticipants"
+        android:id="@+id/handleParticipantsTextView"
+        android:layout_below="@+id/linlay5"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="62dp" />
+        android:layout_marginTop="10dp" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/competitionsSpinner2"
-        android:layout_below="@+id/textView3"
+        android:id="@+id/participantCompetitionSpinner"
+        android:layout_below="@+id/handleParticipantsTextView"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/participantField"
-        android:layout_below="@+id/competitionsSpinner2"
-        android:layout_alignParentStart="true"
-        android:hint="@string/addParticipant" />
+        android:layout_below="@id/participantCompetitionSpinner"
+        android:id="@+id/linlay6">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addButton"
-        android:id="@+id/button6"
-        android:layout_below="@+id/competitionsSpinner2"
-        android:layout_alignParentEnd="true"
-        android:onClick="addParticipant" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/participantRemoveSpinner" />
 
-    <EditText
-        android:layout_width="wrap_content"
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deleteButton"
+            android:id="@+id/deleteParticipantButton"
+            android:onClick="deleteParticipant" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/dateField"
-        android:hint="@string/addDate"
-        android:layout_below="@+id/competitionsSpinner"
-        android:layout_alignStart="@+id/button5" />
+        android:layout_below="@id/linlay6"
+        android:id="@+id/linlay7">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/participantField"
+            android:hint="@string/addParticipantHint" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addButton"
+            android:id="@+id/addParticipantButton"
+            android:onClick="addParticipant" />
+
+    </LinearLayout>
 
 </RelativeLayout>
