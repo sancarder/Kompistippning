@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -165,10 +166,13 @@ public class BetActivity extends AppCompatActivity {
             BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), String.valueOf(betTeamA+"-"+betTeamB));
         else if (actionButton.getText() == "Uppdatera") {
             Bet currentBet = BettingDB.getInstance().getGameBet(betEvent.getEventName(), betGame.getRowId(), betParticipant.getPerson()).get(0);
-            currentBet.setBet(String.valueOf(betTeamA+"-"+betTeamB));
-            currentBetInfo.setText(currentBet.getPerson() + " har tippat " + currentBet.getBet());
-            System.out.println(currentBet.getBet());
-            System.out.println(BettingDB.getInstance().updateBet(currentBet));
+            currentBet.setBet(String.valueOf(betTeamA + "-" + betTeamB));
+
+            if (BettingDB.getInstance().updateBet(currentBet))
+                currentBetInfo.setText(currentBet.getPerson() + " har tippat " + currentBet.getBet());
+            else
+                Toast.makeText(this, "Uppdateringen lyckades inte", Toast.LENGTH_SHORT);
+
         }
     }
 }
