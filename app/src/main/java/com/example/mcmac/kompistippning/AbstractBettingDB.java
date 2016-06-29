@@ -85,7 +85,7 @@ public abstract class AbstractBettingDB {
     }
 
     protected  Cursor getGameBetCursor(String event_name, long gameId, String participant) {
-        return database.query(DB_TABLE_BETS, bets_columns, KEY_EVENT_NAME + "=?" + " AND " + KEY_PERSON + "=?", new String[] { event_name, participant}, null, null, null);
+        return database.query(DB_TABLE_BETS, bets_columns, KEY_EVENT_NAME + "=?" + " AND " + KEY_PERSON + "=?" +" AND " + KEY_GAME_ID +"=" +String.valueOf(gameId), new String[] { event_name, participant}, null, null, null);
 //        return database.query(DB_TABLE_BETS, bets_columns, null, null, null, null, null);
     }
 

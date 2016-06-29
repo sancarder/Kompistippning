@@ -37,6 +37,7 @@ public class BetActivity extends AppCompatActivity {
     String currentGame = null;
     String currentParticipant = null;
 
+    TextView currentBetInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class BetActivity extends AppCompatActivity {
         catch (SQLException e) {
             Log.e("MyTag", e.getMessage(), e);
         }
+
+        currentBetInfo = (TextView) findViewById(R.id.currentBetTextView);
 
         MyItemSelectedListener myItemSelectedListener= new MyItemSelectedListener();
 
@@ -76,7 +79,7 @@ public class BetActivity extends AppCompatActivity {
         participantSpinner.setAdapter(participantAdapter);
         participantSpinner.setOnItemSelectedListener(myItemSelectedListener);
 
-        teamAnp = (NumberPicker)findViewById(R.id.teamBGoalPicker);
+        teamAnp = (NumberPicker)findViewById(R.id.teamAGoalPicker);
         teamBnp = (NumberPicker)findViewById(R.id.teamBGoalPicker);
 
         teamAnp.setMinValue(0);
@@ -120,7 +123,6 @@ public class BetActivity extends AppCompatActivity {
                 teamBTextView.setText("Lag 2");
             }
 
-            TextView currentBetInfo = (TextView) findViewById(R.id.currentBetTextView);
             Participant currentParticipant = (Participant) participantSpinner.getSelectedItem();
 
             if (participantsList.size() > 0 && gamesList.size() > 0) {
@@ -163,6 +165,8 @@ public class BetActivity extends AppCompatActivity {
             BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), String.valueOf(betTeamA+"-"+betTeamB));
         else if (actionButton.getText() == "Uppdatera") {
             Bet currentBet = BettingDB.getInstance().getGameBet(betEvent.getEventName(), betGame.getRowId(), betParticipant.getPerson()).get(0);
+            currentBet.setBet(String.valueOf(betTeamA+"-"+betTeamB));
+            currentBetInfo.setText(currentBet.getPerson() + " har tippat " + currentBet.getBet());
             System.out.println(currentBet.getBet());
             System.out.println(BettingDB.getInstance().updateBet(currentBet));
         }
