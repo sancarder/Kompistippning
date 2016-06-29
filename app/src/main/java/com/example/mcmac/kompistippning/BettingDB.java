@@ -72,6 +72,16 @@ public class BettingDB extends AbstractBettingDB{
         values.put(KEY_EVENT_RESULT, game.getEventResult());
         return database.update(DB_TABLE_GAMES, values, KEY_ROW_ID + "=" + game.getRowId(), null) >0;
     }
+
+    public boolean updateBet(Bet bet) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_EVENT_NAME, bet.getEventName());
+        values.put(KEY_PERSON, bet.getPerson());
+        values.put(KEY_GAME_ID, bet.getGameId());
+        values.put(KEY_BET, bet.getBet());
+        return database.update(DB_TABLE_BETS, values, KEY_ROW_ID + "=" + bet.getRowId(), null) >0;
+    }
+
     /* Detta ska implementeras senare för KompisBetting
     public boolean updateMunicip(Municip municip){
         ContentValues values = new ContentValues();

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,14 +31,19 @@ public class BetActivity extends AppCompatActivity {
     NumberPicker teamAnp;
     NumberPicker teamBnp;
 
+    Button actionButton;
+
     String currentEvent = null;
     String currentGame = null;
     String currentParticipant = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bet);
+
+        actionButton = (Button) findViewById(R.id.tipButton);
 
         try {
             BettingDB.getInstance().open(true, this);
@@ -127,9 +133,11 @@ public class BetActivity extends AppCompatActivity {
 
                 if (participantBet.size() > 0) {
                     currentBetInfo.setText(currentParticipant.getPerson() + " har tippat " + participantBet.get(0).getBet());
+                    actionButton.setText("Uppdatera");
                 }
                 else {
                     currentBetInfo.setText(currentParticipant.getPerson() + " har ännu inte tippat");
+                    actionButton.setText("Tippa");
                 }
             }
             else {
@@ -149,7 +157,14 @@ public class BetActivity extends AppCompatActivity {
         int betTeamA = teamAnp.getValue();
         int betTeamB = teamBnp.getValue();
 
-        BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), betTeamA+"-"+betTeamB);
+        //BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), String.valueOf(betTeamA+"-"+betTeamB));
 
+        if (actionButton.getText() == "Tippa")
+            BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), String.valueOf(betTeamA+"-"+betTeamB));
+        else if (actionButton.getText() == "Uppdatera") {
+            Bet currentBet = BettingDB.getInstance().getGameBet(betEvent.getEventName(), betGame.getRowId(), betParticipant.getPerson()).get(0);
+            System.out.println(currentBet.getBet());
+            System.out.println(BettingDB.getInstance().updateBet(currentBet));
+        }
     }
 }
