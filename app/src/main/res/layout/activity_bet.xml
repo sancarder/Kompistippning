@@ -44,8 +44,8 @@
         android:layout_height="wrap_content"
         android:text="@string/addTeamB"
         android:id="@+id/teamBTextView"
-        android:layout_above="@+id/teamAGoalPicker"
-        android:layout_alignStart="@+id/teamAGoalPicker" />
+        android:layout_above="@+id/teamBGoalPicker"
+        android:layout_alignStart="@+id/teamBGoalPicker" />
 
     <Button
         android:layout_width="wrap_content"
@@ -59,15 +59,15 @@
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/teamAGoalPicker"
+        android:id="@+id/teamBGoalPicker"
         android:layout_above="@+id/tipButton"
         android:layout_toStartOf="@+id/tipButton" />
 
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/teamBGoalPicker"
-        android:layout_alignTop="@+id/teamAGoalPicker"
+        android:id="@+id/teamAGoalPicker"
+        android:layout_alignTop="@+id/teamBGoalPicker"
         android:layout_alignStart="@+id/teamATextView" />
 
     <TextView

@@ -76,7 +76,7 @@ public class BetActivity extends AppCompatActivity {
         participantSpinner.setAdapter(participantAdapter);
         participantSpinner.setOnItemSelectedListener(myItemSelectedListener);
 
-        teamAnp = (NumberPicker)findViewById(R.id.teamAGoalPicker);
+        teamAnp = (NumberPicker)findViewById(R.id.teamBGoalPicker);
         teamBnp = (NumberPicker)findViewById(R.id.teamBGoalPicker);
 
         teamAnp.setMinValue(0);
