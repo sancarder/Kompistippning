@@ -161,6 +161,11 @@ public class BettingDB extends AbstractBettingDB{
         return makeBetListFromCursor(cr);
     }
 
+    public ArrayList<Bet> getGameBets(long gameId, String betString){
+        Cursor cr = getGameBetsCursor( gameId, betString);
+        return makeBetListFromCursor(cr);
+    }
+
 
     private ArrayList<Competition> makeCompetitionListFromCursor(Cursor cr){
         ArrayList<Competition> competitions = new ArrayList<Competition>();

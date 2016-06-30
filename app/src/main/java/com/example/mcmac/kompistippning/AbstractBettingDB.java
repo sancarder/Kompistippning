@@ -89,6 +89,10 @@ public abstract class AbstractBettingDB {
 //        return database.query(DB_TABLE_BETS, bets_columns, null, null, null, null, null);
     }
 
+    protected Cursor getGameBetsCursor(long gameId, String betString){ //select * from Bets
+        return database.query(DB_TABLE_BETS,bets_columns, KEY_GAME_ID + "=" +gameId + " AND " +KEY_BET + "=" +betString, null, null, null, null);
+    }
+
     protected Cursor getAllParticipantsCursor(){ //select * from Participants
         return database.query(DB_TABLE_PARTICIPANTS,participants_columns, null, null, null, null, null);
     }
