@@ -68,7 +68,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 for (Participant part2: competitionParticipants) {
                     if( BettingDB.getInstance().getGameBet(game.getEventName(),game.rowId, part2.getPerson()).get(0).getBet()==gameResult) {
                         ArrayList<Bet> correctBets = BettingDB.getInstance().getGameBets(game.rowId, gameResult);
-                        if (correctBets.size() > 1){
+                        if (correctBets.size() == 1){
                             personScore.get(competitionParticipants.indexOf(part2)).addWinPoints((Integer.getInteger(betAmount)));
                             personScore.get(competitionParticipants.indexOf(part2)).addWins(1);
                         }
@@ -77,6 +77,8 @@ public class StatisticsActivity extends AppCompatActivity {
                             personScore.get(competitionParticipants.indexOf(part2)).addSharedWins(1);
                         }
                     }
+                    else
+                        personScore.get(competitionParticipants.indexOf(part2)).addLosss(1);
                 }
             }
 

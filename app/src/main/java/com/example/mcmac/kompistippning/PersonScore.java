@@ -64,6 +64,9 @@ public class PersonScore {
         this.wins+= wins;
     }
 
+    public void addLosss(int loss) {
+        this.losses+= loss;
+    }
     public void addSharedWins(int wins) {
         this.sharedWins = wins;
     }
