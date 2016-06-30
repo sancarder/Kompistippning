@@ -66,9 +66,17 @@ public class StatisticsActivity extends AppCompatActivity {
                 betAmount = game.getBetAmount();
                 gameResult = game.getEventResult();
                 for (Participant part2: competitionParticipants) {
-                    if( BettingDB.getInstance().getGameBet(game.getEventName(),game.rowId, part2.getPerson()==game.getEventResult());
-                    personScore.get(competitionParticipants.indexOf(part2)).
-
+                    if( BettingDB.getInstance().getGameBet(game.getEventName(),game.rowId, part2.getPerson()).get(0).getBet()==gameResult) {
+                        ArrayList<Bet> correctBets = BettingDB.getInstance().getGameBets(game.rowId, gameResult);
+                        if (correctBets.size() > 1){
+                            personScore.get(competitionParticipants.indexOf(part2)).addWinPoints((Integer.getInteger(betAmount)));
+                            personScore.get(competitionParticipants.indexOf(part2)).addWins(1);
+                        }
+                        else{
+                            personScore.get(competitionParticipants.indexOf(part2)).addSharedPoints(Integer.getInteger(betAmount)/correctBets.size());
+                            personScore.get(competitionParticipants.indexOf(part2)).addSharedWins(1);
+                        }
+                    }
                 }
             }
 
