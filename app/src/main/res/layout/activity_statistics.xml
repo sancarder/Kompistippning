@@ -19,8 +19,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text=""
         android:id="@+id/statTextView"
         android:layout_below="@+id/competitionStatSpinner"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/statLegend"
+        android:id="@+id/statLegend"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/statTextView"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
+

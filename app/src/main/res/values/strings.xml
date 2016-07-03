@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">Kompistippning</string>
+    <string name="app_name">Tippa</string>
 
     <string name="betButton">Tippa</string>
     <string name="addButton">Lägg till</string>
+    <string name="reportResultButton">Rapportera resultat</string>
+    <string name="reportResultUpdateButton">Uppdatera matchresultat</string>
     <string name="deleteButton">Ta bort</string>
     <string name="viewCompetitionButton">Tävlingar</string>
     <string name="viewStats">Statistik</string>
@@ -19,5 +21,6 @@
     <string name="addDate">Datum</string>
     <string name="addBetAmount">Summa</string>
     <string name="addGameType">Typ av match</string>
+    <string name="statLegend">UV = Unika Vinster\nDV=Delade Vinster\nF=Förluster\nTP=TotalPoäng</string>
 
 </resources>

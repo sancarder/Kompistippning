@@ -47,6 +47,12 @@ public class BetActivity extends AppCompatActivity {
 
         actionButton = (Button) findViewById(R.id.tipButton);
 
+        setupActivity();
+
+    }
+
+    public void setupActivity() {
+
         try {
             BettingDB.getInstance().open(true, this);
         }
@@ -93,7 +99,7 @@ public class BetActivity extends AppCompatActivity {
 
     }
 
-    private class MyItemSelectedListener implements AdapterView.OnItemSelectedListener {
+        private class MyItemSelectedListener implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
             Competition tempCompetition = (Competition) competitionSpinner.getSelectedItem();
@@ -136,15 +142,27 @@ public class BetActivity extends AppCompatActivity {
 
                 if (participantBet.size() > 0) {
                     currentBetInfo.setText(currentParticipant.getPerson() + " har tippat " + participantBet.get(0).getBet());
+
+                    String[] betString = participantBet.get(0).getBet().split("-");
+                    int teamAbet = Integer.parseInt(betString[0]);
+                    int teamBbet = Integer.parseInt(betString[1]);
+
+                    teamAnp.setValue(teamAbet);
+                    teamBnp.setValue(teamBbet);
+
                     actionButton.setText("Uppdatera");
                 }
                 else {
                     currentBetInfo.setText(currentParticipant.getPerson() + " har ännu inte tippat");
+
+                    teamAnp.setValue(0);
+                    teamBnp.setValue(0);
+
                     actionButton.setText("Tippa");
                 }
             }
             else {
-                currentBetInfo.setText("Tävlingen saknar deltagare");
+                currentBetInfo.setText("Tävlingen saknar matcher eller deltagare");
             }
 
         }
@@ -156,16 +174,24 @@ public class BetActivity extends AppCompatActivity {
         Competition betEvent = (Competition) competitionSpinner.getSelectedItem();
         Game betGame = (Game) gameSpinner.getSelectedItem();
         Participant betParticipant = (Participant) participantSpinner.getSelectedItem();
+        Bet currentBet;
 
         int betTeamA = teamAnp.getValue();
         int betTeamB = teamBnp.getValue();
 
         //BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), String.valueOf(betTeamA+"-"+betTeamB));
 
-        if (actionButton.getText() == "Tippa")
-            BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), String.valueOf(betTeamA+"-"+betTeamB));
+        if (actionButton.getText() == "Tippa") {
+            currentBet = BettingDB.getInstance().insertBet(betEvent.getEventName(), betParticipant.getPerson(), String.valueOf(betGame.getRowId()), String.valueOf(betTeamA + "-" + betTeamB));
+            actionButton.setText("Uppdatera");
+            if (currentBet != null)
+                currentBetInfo.setText(currentBet.getPerson() + " har tippat " + currentBet.getBet());
+            else
+                Toast.makeText(this, "Tippningen lyckades inte", Toast.LENGTH_SHORT);
+        }
+
         else if (actionButton.getText() == "Uppdatera") {
-            Bet currentBet = BettingDB.getInstance().getGameBet(betEvent.getEventName(), betGame.getRowId(), betParticipant.getPerson()).get(0);
+            currentBet = BettingDB.getInstance().getGameBet(betEvent.getEventName(), betGame.getRowId(), betParticipant.getPerson()).get(0);
             currentBet.setBet(String.valueOf(betTeamA + "-" + betTeamB));
 
             if (BettingDB.getInstance().updateBet(currentBet))
@@ -175,4 +201,18 @@ public class BetActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        BettingDB.getInstance().close();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        setupActivity();
+    }
+
 }

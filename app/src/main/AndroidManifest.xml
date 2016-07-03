@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/football"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -24,6 +24,9 @@
         <activity
             android:name=".StatisticsActivity"
             android:label="@string/viewStats" />
+        <activity
+            android:name=".ReportResultActivity"
+            android:label="@string/reportResultButton" />
         <activity android:name=".BetActivity"
             android:label="@string/betButton" />
     </application>

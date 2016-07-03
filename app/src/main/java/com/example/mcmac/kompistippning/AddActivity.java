@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,12 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        setupActivity();
+
+    }
+
+    public void setupActivity() {
+
         try {
             BettingDB.getInstance().open(true, this);
         }
@@ -81,7 +88,7 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    public void addCompetition(View view) {
+        public void addCompetition(View view) {
 
         competitionField =(TextView)findViewById(R.id.competitionField);
         newCompetition = competitionField.getText().toString();
@@ -210,4 +217,18 @@ public class AddActivity extends AppCompatActivity {
         }
         public void onNothingSelected(AdapterView<?> parent) {
         }};
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        BettingDB.getInstance().close();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        setupActivity();
+    }
+
 }

@@ -61,7 +61,7 @@
             <NumberPicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/teamBGoalPicker" />
+                android:id="@+id/teamAGoalPicker" />
 
         </LinearLayout>
 
@@ -80,7 +80,7 @@
             <NumberPicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/teamAGoalPicker" />
+                android:id="@+id/teamBGoalPicker" />
 
         </LinearLayout>
 

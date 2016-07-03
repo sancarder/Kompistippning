@@ -162,7 +162,12 @@ public class BettingDB extends AbstractBettingDB{
     }
 
     public ArrayList<Bet> getGameBets(long gameId, String betString){
-        Cursor cr = getGameBetsCursor( gameId, betString);
+        Cursor cr = getGameBetsCursor(gameId, betString);
+        return makeBetListFromCursor(cr);
+    }
+
+    public ArrayList<Bet> getAllGameBets(long gameId){
+        Cursor cr = getAllGameBetsCursor(gameId);
         return makeBetListFromCursor(cr);
     }
 
@@ -210,7 +215,7 @@ public class BettingDB extends AbstractBettingDB{
         BettingDB.getInstance().insertCompetition("VM 2018");
 
         //Games-table
-        BettingDB.getInstance().insertGame("EM 2016", "2016-06-25", "Kroatien", "Portugal", "5", "Åttondel", "-");
+        BettingDB.getInstance().insertGame("EM 2016", "2016-06-25", "Kroatien", "Portugal", "5", "Åttondel", "7-4");
         BettingDB.getInstance().insertGame("EM 2016", "2016-07-08", "Polen", "Sverige", "7", "Semifinal", "2-1");
         BettingDB.getInstance().insertGame("VM 2018", "2018-06-15", "Spanien", "Italien", "10", "Final", "-");
 

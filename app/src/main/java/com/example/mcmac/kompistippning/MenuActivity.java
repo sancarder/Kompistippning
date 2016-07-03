@@ -3,7 +3,10 @@ package com.example.mcmac.kompistippning;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+
+import java.sql.SQLException;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -25,6 +28,12 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickReport(View button) {
+
+        Intent intent = new Intent(this, ReportResultActivity.class);
+        startActivity(intent);
+    }
+
     public void onClickCompetitions(View button) {
 
         Intent intent = new Intent(this, CompetitionActivity.class);
@@ -36,6 +45,5 @@ public class MenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, StatisticsActivity.class);
         startActivity(intent);
     }
-
 
 }

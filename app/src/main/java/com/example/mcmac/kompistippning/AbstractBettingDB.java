@@ -44,7 +44,7 @@ public abstract class AbstractBettingDB {
     private static final String [] participants_columns = {KEY_ROW_ID, KEY_EVENT_NAME, KEY_PERSON};
     private static final String [] bets_columns= {KEY_ROW_ID, KEY_EVENT_NAME, KEY_PERSON, KEY_GAME_ID, KEY_BET};
 
-    private static final int DB_VERSION = 14;
+    private static final int DB_VERSION = 15;
     private MyDbHelper myDbHelper;
     private Context context;
 
@@ -90,7 +90,11 @@ public abstract class AbstractBettingDB {
     }
 
     protected Cursor getGameBetsCursor(long gameId, String betString){ //select * from Bets
-        return database.query(DB_TABLE_BETS,bets_columns, KEY_GAME_ID + "=" +gameId + " AND " +KEY_BET + "=" +betString, null, null, null, null);
+        return database.query(DB_TABLE_BETS,bets_columns, KEY_GAME_ID + "=" +String.valueOf(gameId) + " AND " +KEY_BET + "=" +betString, null, null, null, null);
+    }
+
+    protected Cursor getAllGameBetsCursor(long gameId){ //select * from Bets
+        return database.query(DB_TABLE_BETS,bets_columns, KEY_GAME_ID + "=" +gameId, null, null, null, null);
     }
 
     protected Cursor getAllParticipantsCursor(){ //select * from Participants

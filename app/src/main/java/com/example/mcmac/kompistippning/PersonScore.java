@@ -7,12 +7,12 @@ public class PersonScore {
 
     private String name;
     private int wins;
-    private int winPoints;
+    private double winPoints;
     private int sharedWins;
-    private int sharedPoints;
+    private double sharedPoints;
     private int losses;
 
-    public PersonScore(String name, int wins, int winPoints, int sharedWins, int sharedPoints, int losses){
+    public PersonScore(String name, int wins, double winPoints, int sharedWins, double sharedPoints, int losses){
         this.name = name;
         this.wins =wins;
         this.winPoints = winPoints;
@@ -37,61 +37,37 @@ public class PersonScore {
     public void addWinPoints(int points) {
         winPoints+=points;
     }
-    public void addSharedPoints(int points) {
+    public void addSharedPoints(double points) {
         sharedPoints+=points;
     }
-    public void setLosses(int losses) {
-        this.losses = losses;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getWins() {
         return wins;
     }
 
-    public void setWins(int wins) {
-        this.wins = wins;
-    }
-
     public void addWins(int wins) {
         this.wins+= wins;
     }
 
-    public void addLosss(int loss) {
+    public void addLoss(int loss) {
         this.losses+= loss;
     }
     public void addSharedWins(int wins) {
         this.sharedWins = wins;
     }
-    public int getWinPoints() {
+    public double getWinPoints() {
         return winPoints;
-    }
-
-    public void setWinPoints(int winPoints) {
-        this.winPoints = winPoints;
     }
 
     public int getSharedWins() {
         return sharedWins;
     }
 
-    public void setSharedWins(int sharedWins) {
-        this.sharedWins = sharedWins;
-    }
-
-    public int getSharedPoints() {
+    public double getSharedPoints() {
         return sharedPoints;
-    }
-
-    public void setSharedPoints(int sharedPoints) {
-        this.sharedPoints = sharedPoints;
     }
 
 
