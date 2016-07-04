@@ -3,7 +3,7 @@ package com.example.mcmac.kompistippning;
 /**
  * Created by Mattias on 2016-06-30.
  */
-public class PersonScore {
+public class PersonScore implements Comparable<PersonScore> {
 
     private String name;
     private int wins;
@@ -28,6 +28,19 @@ public class PersonScore {
         this.sharedWins = 0;
         this.sharedPoints = 0;
         this.losses = 0;
+    }
+
+    @Override
+    public int CompareTo(PersonScore personScore){
+        double thisPersonPoints = this.sharedPoints+this.winPoints;
+        double otherPersonPoints = personScore.winPoints+personScore.sharedPoints;
+        if (thisPersonPoints>otherPersonPoints)
+            return 1;
+        else if (thisPersonPoints>otherPersonPoints)
+            return -1;
+        else
+            return 0;
+    }
     }
 
     public int getLosses() {

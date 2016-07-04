@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class StatisticsActivity extends AppCompatActivity {
 
@@ -125,7 +126,7 @@ public class StatisticsActivity extends AppCompatActivity {
             }
             if(competitionGames.size()>0) {
                 tableString = String.format("%-10s %-3s %-3s %-3s %s", "Namn", "UV", "DV", "F", "TP");
-
+                Collections.sort(personScore);
                 for (PersonScore pScore : personScore) {
                     tableString += String.format("\n%-10s %-3d %-3d %-3d %.2f", pScore.getName(), pScore.getWins(), pScore.getSharedWins(), pScore.getLosses(), pScore.getSharedPoints() + pScore.getWinPoints());
                 }
