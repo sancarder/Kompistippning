@@ -118,8 +118,12 @@ public class StatisticsActivity extends AppCompatActivity {
                         }
                     }
                     else {
-                        System.out.println("Participant was wrong");
-                        personScore.get(competitionParticipants.indexOf(part2)).addLoss(1);
+                        if (!gameResult.equals("-")) {
+                            System.out.println("Participant was wrong");
+                            personScore.get(competitionParticipants.indexOf(part2)).addLoss(1);
+                        }
+                        else
+                            System.out.println("The results are not in yet");
                     }
                 }
 
